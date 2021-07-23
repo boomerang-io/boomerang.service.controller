@@ -109,8 +109,8 @@ public class TektonServiceImpl {
   
   public TaskRun createTaskRun(String workspaceId, String workflowName,
       String workflowId, String workflowActivityId, String taskActivityId, String taskName,
-      String taskId, Map<String, String> customLabels, List<String> arguments,
-      Map<String, String> parameters, List<TaskEnvVar> envVars, List<TaskResultParameter> results, String image, String command, String workingDir, 
+      String taskId, Map<String, String> customLabels, String image, List<String> command, List<String> arguments,
+      Map<String, String> parameters, List<TaskEnvVar> envVars, List<TaskResultParameter> results, String workingDir, 
       TaskConfiguration configuration, String script, long waitSeconds) throws InterruptedException {
 
     LOGGER.info("Initializing Task...");
@@ -321,13 +321,8 @@ public class TektonServiceImpl {
     taskStep.setImage(image);
     if (script != null && !script.isEmpty()) {
       taskStep.setScript(script);
-    } else {
-      List<String> commands = new ArrayList<>();
-      if (command != null) {
-          commands.add(command);
-      }
-      taskStep.setCommand(commands);
     }
+    taskStep.setCommand(command);
     taskStep.setImagePullPolicy(kubeImagePullPolicy);
     taskStep.setArgs(arguments);
     taskStep.setEnv(tknEnvVars);

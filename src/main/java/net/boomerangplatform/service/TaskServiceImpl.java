@@ -96,9 +96,8 @@ public class TaskServiceImpl implements TaskService {
             : null;
         tektonService.createTaskRun(workspaceId, task.getWorkflowName(), task.getWorkflowId(),
             task.getWorkflowActivityId(), task.getTaskActivityId(), task.getTaskName(),
-            task.getTaskId(), task.getLabels(), task.getArguments(), task.getParameters(),
-            task.getEnvs(), task.getResults(), task.getImage(), task.getCommand(),
-            task.getWorkingDir(), task.getConfiguration(), task.getScript(), waitUntilTimeout);
+            task.getTaskId(), task.getLabels(), task.getImage(), task.getCommand(), task.getArguments(), task.getParameters(),
+            task.getEnvs(), task.getResults(), task.getWorkingDir(), task.getConfiguration(), task.getScript(), waitUntilTimeout);
         results = tektonService.watchTask(task.getWorkflowId(), task.getWorkflowActivityId(),
             task.getTaskId(), task.getTaskActivityId(), task.getLabels(), getTaskTimeout(task.getConfiguration()));
         if (getTaskDeletionConfig(task.getConfiguration()).equals(TaskDeletionEnum.OnSuccess)) {
